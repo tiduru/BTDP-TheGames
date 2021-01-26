@@ -1,0 +1,9 @@
+-----Document de développement du premier jeu-----
+
+Titre provisoire:
+Débuté le:
+Équipe original: - Guillaume "Guiguikill" St-Hilaire
+		 - Jean-Christophe "EpicPotato" Fronteddu
+		 - Timothée "Tidur" Duruisseau
+
+----1. Idée----
