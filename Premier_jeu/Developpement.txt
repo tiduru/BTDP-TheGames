@@ -53,3 +53,4 @@ EASTER EGGS
 - Negative round! Tu perds ton bet si tu gagnes (GUI, contrast change)
 - Boost les minables
 - Multiplication round
+- Naked mile
