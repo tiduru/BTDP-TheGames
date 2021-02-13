@@ -52,4 +52,4 @@ EASTER EGGS
 - Riverse round! La pire main gagne
 - Negative round! Tu perds ton bet si tu gagnes (GUI, contrast change)
 - Boost les minables
-- 
+- Multiplication round
