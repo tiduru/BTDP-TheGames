@@ -1,9 +1,55 @@
 -----Document de développement du premier jeu-----
 
-Titre provisoire:
+Titre provisoire: Rum-poker
 Débuté le:
 Équipe original: - Guillaume "Guiguikill" St-Hilaire
-		 - Jean-Christophe "EpicPotato" Fronteddu
-		 - Timothée "Tidur" Duruisseau
+		         - Jean-Christophe "EpicPotato" Fronteddu
+		         - Timothée "Tidur" Duruisseau
 
-----1. Idée----
+---- 1. Idée ----
+Poker-like (Texas Hold'em), avec un mode cash, un mode boésson/food/droye/bouteille/baiser
+
+Graphic User Interface (GUI)
+******* Important: EASTER EGGS!!!!!
+
+- Cartes du joueur (customizable au gout du joueur) (surprise motherfucker)
+- Les 3-4-5 cartes du milieu (la café principale)(aka westeros)
+- Mises (le pot yo)
+- Banque des joueurs (en khron, USD, USC, yen corréen du nord, etc)
+- Dealer (de droye) (small blind) (toujours le dernier a miser)
+- Big blind
+- Bouton prob et stats (MTH2302)
+- Passe/Bet/Couche
+- Pour faire la mise (5/25/50/100, autre montant, all-in, half-all-in, call)
+- ANNONCE DE CE QUE TU DOIS FAIRE (C'est ton tour!, Mise!, etc)
+
+Regles du jeu (TUTORIAL WILL BE NEEDED (Skippable), first round doesn't count)
+- Cartes joueurs distribué
+- Dealer commence avec small blind
+- Joueur à gauche BIG BLIND
+- Tour de table de mise
+- RÉVÉLATION des 3 premières cartes de la table
+- Joueur a gauche du dealer premiere mise pour le tour
+- Tour de table mises (raise and all)
+- Lorsque toutes mises égalisées, RÉVÉLATION de la 4e carte
+- Premier joueur a gauche du dealer premiere mise
+- Tour de table mises (raise and all)
+- Lorsque toutes mises égalisées, RÉVÉLATION de la 5e carte
+- Premier joueur a gauche du dealer premiere mise
+- tour de table
+- Lorsque égalisé ou all-in, RÉVÉLATION DES CARTES DES JOUEURS
+- Meilleure main (ou pire....) gagne le pot
+
+Comment faire mode paries (boissons, bouffes, amour oral, wtv)
+
+
+
+IDÉES FUTURES
+- Intégrer un video feed au lieu d'icones pour les joueurs
+
+
+EASTER EGGS
+- Riverse round! La pire main gagne
+- Negative round! Tu perds ton bet si tu gagnes (GUI, contrast change)
+- Boost les minables
+- 
