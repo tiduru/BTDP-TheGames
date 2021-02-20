@@ -1,0 +1,36 @@
+# Règle du poker
+Combinaisons possible:
+1- carte haute
+2- pair
+3- double pair
+4- triple (Brelan)
+5- suite (5 cartes qui se suivent)
+6- flush (5 cartes de la même sorte)
+7- full house (triple + pair)
+8- carré (4 cartes pareils)
+9- straight flush (5 cartes qui se suivent de la même sorte)
+10- royal flush (As - R - D - J - 10  de la même sorte)
+
+Fonctionnement d'un main:
+1- le premier joueur à recevoir un carte est la petite blind (Dealer)
+2- le joueur à sa gauche est la grosse blind
+Les deux blind doivent être mis sur la table avant qu'ils puissent voire leur carte
+3- Tous les joueurs recoivent 2 cartes
+4- le joueur à cause de la grosse blind commencent les mises
+Il peut :
+    -Égaliser la grosse blind pour jouer
+    -Se coucher
+    -Miser un montant supérieur à la big blind
+5- Tous les joueurs font les mises
+Le dealer est le dernier à pouvoir miser
+6- Les trois premières cartes sont révélées
+7- Tour de mise en partant du joueur big blind et finissant par le Dealer
+À noter si le big blind se couche (quitte) le joueur à sa gauche devient le premier à miser
+À noter si le Dealer se couche (quitte) le joueur à sa droite devient le dealer pour le reste du tour
+À noter le big blind à l'option de Check (ne mise pas de jetons et c'est au joueur suivant)
+8- Tour de mise fini, la 4e carte est tournée
+9- Tour de mise (même que 7)
+10- Tour de mise fini, la 5e carte est tournée
+11- Dernier tour de mise
+12- Tour de mise fini, les joueurs dévoilent leurs cartes
+13- La main la plus forte gagne le pot
