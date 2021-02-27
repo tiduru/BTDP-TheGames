@@ -1,0 +1,21 @@
+# ------- Client ---------
+    - Setting de jeu (visuel, sonor, options, mode de jeu)
+    - Affichage (carte du joueur, banque du joueur, etc)
+    - Actions (bet, pass, couche, etc)
+    - Statistiques de jeu
+
+# ------- Serveur --------
+    - Environnement (easter eggs, reverse round, etc)
+    - Cartes joueurs
+    - Cartes table
+
+# ------- Communication Serveur --> Client ------
+    - Distribution de cartes
+    - Deck
+    - Banques de tous les jouers
+    - Mise totale
+    - Dernière mise
+
+# ------- Communication Client --> Serveur ------
+    - Action demandé par le joueur
+    -
