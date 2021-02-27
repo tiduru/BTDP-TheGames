@@ -1,11 +1,11 @@
 import pygame
-import pygame_menu import sound
-
+import pygame_menu
 
 pygame.init()
-surface = pygame.display.set_mode((600, 400))
-
-
+WINDOW_SIZE=(600,600)
+surface=pygame.display.set_mode(WINDOW_SIZE)
+def main_background():
+    background_image(surface)
 def set_difficulty(value, difficulty):
     # Do the job here !
     pass
@@ -14,19 +14,35 @@ def start_the_game():
     # Do the job here !
     pass
 
-mytheme = pygame_menu.themes.THEME_GREEN.copy()
-mytheme.title_background_color=(0, 0, 0)
+def rules():
+    pass
 
-menu = Menu(..., theme=mytheme)
+def options ():
+    pass
 
-
-menu = pygame_menu.Menu(300, 400, 'Welcome',
-                       theme=pygame_menu.themes.THEME_BLUE)
-
-menu.add_text_input('Name :', default='John Doe')
-menu.add_selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
-menu.add_button('Play', start_the_game)
-menu.add_button('Quit', pygame_menu.events.EXIT)
+def main_menu():
+    menu = pygame_menu.Menu(600, 600, 'Ah bin caliss',
+                           theme=pygame_menu.themes.THEME_ORANGE)
 
 
-menu.mainloop(surface)
+    menu.add_selector('Jeu à jouer :', [('Poker', 1)], onchange=set_difficulty)
+    menu.add_button('Jouer', poker_menu)
+    menu.add_button('Options', options)
+    menu.add_button('Quitter', pygame_menu.events.EXIT)
+    menu.mainloop(surface)
+
+def poker_menu():
+    menu = pygame_menu.Menu(600, 600, 'Poker',
+                            theme=pygame_menu.themes.THEME_GREEN)
+    menu.add_text_input('Name :', default='Blow Me Daddy')
+    menu.add_button('Rejoindre une party', start_the_game)
+    menu.add_button('Règle de jeu', rules)
+    menu.add_button('Retour', main_menu)
+
+    menu.mainloop(surface)
+#Main Loop
+
+def main():
+    main_menu()
+
+main()
