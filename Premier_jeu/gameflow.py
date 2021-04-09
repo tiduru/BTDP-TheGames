@@ -9,12 +9,13 @@ import collections
 def deck_generator():
     deck = {}
     colors = ['spades', 'hearts', 'diamonds', 'clubs']
-    values = ['as', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+    symbol = ['as', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+    valeur = [[1, 14], 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     j = 0
     for i, couleur in enumerate(colors):
-        for k, valeur in enumerate(values):
-            deck[str(j)] = [valeur, couleur]
-            j+= 1
+        for k, symbole in enumerate(symbol):
+            deck[str(j)] = [symbole, couleur, valeur[k]]
+            j += 1
     return deck
 deck = deck_generator()
 
@@ -70,56 +71,84 @@ def tour_de_mise():
     return joueurs
 
 #vérification des mains
-'''
+
 def check_straight_flush(hand):
-    if check_flush(hand) and check_straight(hand):
-        return True
-    else:
-        return False
+    if check_flush(hand):
+        if check_suite(suite):
+            return True
+    return False
 
 def check_carre(hand):
-    values = [i[0] for i in hand]
-    value_counts = defaultdict(lambda:0)
-    for v in values:
-        value_counts[v]+=1
-    if sorted(value_counts.values()) == [1,4]:
-        return True
+    val = []
+    for i in range(len(hand)):
+        val.append(deck[hand[i]][0])
+    for i, carte in enumerate(val):
+        occurence = val.count(carte)
+        if occurence == 4:
+            return True
     return False
 
 def check_full_house(hand):
-    values = [i[0] for i in hand]
-    value_counts = defaultdict(lambda:0)
-    for v in values:
-        value_counts[v]+=1
-    if sorted(value_counts.values()) == [2,3]:
+    if check_pair(hand) and check_triple(hand):
         return True
     return False
 
 def check_flush(hand):
-    suits = [i[1] for i in hand]
-    if len(set(suits))==1:
-        return True
-    else:
-        return False
+    val = []
+    for i in range(len(hand)):
+        val.append(deck[hand[i]][1])
+    for i, carte in enumerate(val):
+        occurence = val.count(carte)
+        if occurence >= 5:
+            return True
+    return False
 
 def check_suite(hand):
-    values = [i[0] for i in hand]
-    value_counts = defaultdict(lambda:0)
-    for v in values:
-        value_counts[v] += 1
-    rank_values = [card_order_dict[i] for i in values]
-    value_range = max(rank_values) - min(rank_values)
-    if len(set(value_counts.values())) == 1 and (value_range==4):
-        return True
-    else:
-        #check straight with low Ace
-        if set(values) == set(["A", "2", "3", "4", "5"]):
-            return True
-        return False
-'''
+    val = []
+    for i in range(len(hand)):
+        #Ace high
+        if deck[hand[i]][0] == 'as':
+            val.append(deck[hand[i]][2][1])
+        else:
+            val.append(deck[hand[i]][2])
+    count = 0
+    suite = []
+    val = sorted(val)
+    for i in range(len(val)-1):
+        if (val[i+1] == val[i] + 1) and i == len(val) - 2:
+            count += 1
+            suite.append(val[i])
+            count += 1
+            suite.append(val[i+1])
+        elif val[i+1] == val[i] + 1:
+            count += 1
+            suite.append(val[i])
+        elif (val[i+1] != val[i] + 1) and count < 5:
+            count = 0
+            suite = []
+    if count >= 5:
+        return True, suite
+    elif 1 in hand:
+        for i in range(len(hand)):
+            # Ace low
+            if deck[hand[i]][0] == 'as':
+                val.append(deck[hand[i]][2][0])
+            else:
+                val.append(deck[hand[i]][2])
+        count = 0
+        suite = []
+        val = sorted(val)
+        for i in range(len(val)-1):
+            if val[i+1] == val[i] + 1:
+                count += 1
+                suite.append(val[i])
+        if count >= 5:
+            return True, suite
+    return False
+
 def check_triple(hand):
     val = []
-    for i in range(7):
+    for i in range(len(hand)):
         val.append(deck[hand[i]][0])
     for i, carte in enumerate(val):
         occurence = val.count(carte)
@@ -130,19 +159,19 @@ def check_triple(hand):
 def check_double_pair(hand):
     val = []
     count = 0
-    for i in range(7):
+    for i in range(len(hand)):
         val.append(deck[hand[i]][0])
     for i, carte in enumerate(val):
         occurence = val.count(carte)
         if occurence == 2:
             count += 1
-        if occurence == 2 & count == 2:
+        if occurence == 2 and count == 4:
             return True
     return False
 
 def check_pair(hand):
     val = []
-    for i in range(7):
+    for i in range(len(hand)):
         val.append(deck[hand[i]][0])
     for i, carte in enumerate(hand):
         occurence = hand.count(carte)
@@ -151,7 +180,7 @@ def check_pair(hand):
     return False
 
 
-'''    
+
 #fonction qui attribue une valeur aux mains des joueurs
 def check_hand(hand):
     if check_straight_flush(hand):
@@ -181,17 +210,12 @@ for j in range(nb_joueurs):
         hand.append(mains[j+1][i])
     #joueurs[j][3] = check_hand(hand)
     #hand = []
+'''
 
-val = []
-for i in range(7):
-    val.append(deck[hand[i]][0])
-print(val)
-x = check_pair(hand)
-y = check_double_pair(hand)
-z = check_triple(hand)
+hand = ['0','27','2','22','23','24','25']
+x = check_suite(hand)
 print(x)
-print(y)
-print(z)
+
 
 '''def main_gagnante():
     for i in range(nb_joueurs):
