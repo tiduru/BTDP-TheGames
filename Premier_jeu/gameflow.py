@@ -73,8 +73,9 @@ def tour_de_mise():
 #vérification des mains
 
 def check_straight_flush(hand):
-    if check_flush(hand):
-        if check_suite(suite):
+    if check_suite(hand)[0]:
+        suite = check_suite(hand)[1]
+        if check_flush(suite):
             return True
     return False
 
@@ -116,13 +117,28 @@ def check_suite(hand):
     val = sorted(val)
     for i in range(len(val)-1):
         if (val[i+1] == val[i] + 1) and i == len(val) - 2:
-            count += 1
-            suite.append(val[i])
-            count += 1
-            suite.append(val[i+1])
+            count += 2
+            for j in range(len(hand)):
+                if deck[hand[j]][0] == 'as':
+                    if deck[hand[j]][2][1] == val[i]:
+                        suite.append(hand[j])
+                    if deck[hand[j]][2][1] == val[i+1]:
+                        suite.append(hand[j])
+                elif deck[hand[j]][0] != 'as':
+                    if deck[hand[j]][2] == val[i]:
+                        suite.append(hand[j])
+                    if deck[hand[j]][2] == val[i+1]:
+                        suite.append(hand[j])
+
         elif val[i+1] == val[i] + 1:
             count += 1
-            suite.append(val[i])
+            for j in range(len(hand)):
+                if deck[hand[j]][0] == 'as':
+                    if deck[hand[j]][2][1] == val[i]:
+                        suite.append(hand[j])
+                elif deck[hand[j]][0] != 'as':
+                    if deck[hand[j]][2] == val[i]:
+                        suite.append(hand[j])
         elif (val[i+1] != val[i] + 1) and count < 5:
             count = 0
             suite = []
@@ -141,7 +157,12 @@ def check_suite(hand):
         for i in range(len(val)-1):
             if val[i+1] == val[i] + 1:
                 count += 1
-                suite.append(val[i])
+                for j in range(len(hand)):
+                    if hand[j][2] == val[i]:
+                        suite.append(hand[j])
+                    if hand[j][2] == val[i + 1]:
+                        suite.append(hand[j])
+                suite.append(hand[i])
         if count >= 5:
             return True, suite
     return False
@@ -213,7 +234,7 @@ for j in range(nb_joueurs):
 '''
 
 hand = ['0','27','2','22','23','24','25']
-x = check_suite(hand)
+x = check_straight_flush(hand)
 print(x)
 
 
