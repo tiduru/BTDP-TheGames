@@ -10,7 +10,7 @@ def deck_generator():
     deck = {}
     colors = ['spades', 'hearts', 'diamonds', 'clubs']
     symbol = ['as', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-    valeur = [[1, 14], 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    valeur = [14, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     j = 0
     for i, couleur in enumerate(colors):
         for k, symbole in enumerate(symbol):
@@ -71,11 +71,10 @@ def tour_de_mise():
     return joueurs
 
 #vérification des mains
-
 def check_straight_flush(hand):
-    if check_suite(hand)[0]:
-        suite = check_suite(hand)[1]
-        if check_flush(suite):
+    suite = check_suite(hand)
+    if suite[0]:
+        if check_flush(suite[1]):
             return True
     return False
 
@@ -107,11 +106,8 @@ def check_flush(hand):
 def check_suite(hand):
     val = []
     for i in range(len(hand)):
-        #Ace high
-        if deck[hand[i]][0] == 'as':
-            val.append(deck[hand[i]][2][1])
-        else:
-            val.append(deck[hand[i]][2])
+        val.append(deck[hand[i]][2])
+
     count = 0
     suite = []
     val = sorted(val)
@@ -119,53 +115,24 @@ def check_suite(hand):
         if (val[i+1] == val[i] + 1) and i == len(val) - 2:
             count += 2
             for j in range(len(hand)):
-                if deck[hand[j]][0] == 'as':
-                    if deck[hand[j]][2][1] == val[i]:
-                        suite.append(hand[j])
-                    if deck[hand[j]][2][1] == val[i+1]:
-                        suite.append(hand[j])
-                elif deck[hand[j]][0] != 'as':
-                    if deck[hand[j]][2] == val[i]:
-                        suite.append(hand[j])
-                    if deck[hand[j]][2] == val[i+1]:
-                        suite.append(hand[j])
+                if deck[hand[j]][2] == val[i]:
+                    suite.append(hand[j])
+            for j in range(len(hand)):
+                if deck[hand[j]][2] == val[i+1]:
+                    suite.append(hand[j])
 
         elif val[i+1] == val[i] + 1:
             count += 1
             for j in range(len(hand)):
-                if deck[hand[j]][0] == 'as':
-                    if deck[hand[j]][2][1] == val[i]:
-                        suite.append(hand[j])
-                elif deck[hand[j]][0] != 'as':
-                    if deck[hand[j]][2] == val[i]:
-                        suite.append(hand[j])
+                if deck[hand[j]][2] == val[i]:
+                    suite.append(hand[j])
+
         elif (val[i+1] != val[i] + 1) and count < 5:
             count = 0
             suite = []
     if count >= 5:
         return True, suite
-    elif 1 in hand:
-        for i in range(len(hand)):
-            # Ace low
-            if deck[hand[i]][0] == 'as':
-                val.append(deck[hand[i]][2][0])
-            else:
-                val.append(deck[hand[i]][2])
-        count = 0
-        suite = []
-        val = sorted(val)
-        for i in range(len(val)-1):
-            if val[i+1] == val[i] + 1:
-                count += 1
-                for j in range(len(hand)):
-                    if hand[j][2] == val[i]:
-                        suite.append(hand[j])
-                    if hand[j][2] == val[i + 1]:
-                        suite.append(hand[j])
-                suite.append(hand[i])
-        if count >= 5:
-            return True, suite
-    return False
+    return False, suite
 
 def check_triple(hand):
     val = []
@@ -212,7 +179,7 @@ def check_hand(hand):
         return 7
     if check_flush(hand):
         return 6
-    if check_suite(hand):
+    if check_suite(hand)[0]:
         return 5
     if check_triple(hand):
         return 4
@@ -221,21 +188,55 @@ def check_hand(hand):
     if check_pair(hand):
         return 2
     return 1
-'''
-#fonction qui indique quel joueur gagne la main
-hand = []
-for j in range(nb_joueurs):
-    for i in range(5):
-        hand.append(mains[0][i])
-    for i in range(2):
-        hand.append(mains[j+1][i])
-    #joueurs[j][3] = check_hand(hand)
-    #hand = []
-'''
 
-hand = ['0','27','2','22','23','24','25']
-x = check_straight_flush(hand)
+#fonction qui indique quel joueur gagne la main
+def winning_hand(hand):
+    val = []
+    main_joueur = []
+    center = []
+    joueur = []
+    for i in range(nb_joueurs+1):
+        if i == 0:
+            for j in range(5):
+                center.append(hand[i][j])
+        elif i != 0:
+            for j in range(5):
+                main_joueur.append(center[j])
+            for j in range(2):
+                main_joueur.append(hand[i][j])
+
+            val.append(check_hand(main_joueur))
+            joueur.append([i, hand[i], val[i-1]])
+            main_joueur = []
+
+
+    val = sorted(val)
+    winner = val[-1]
+    for i in range(nb_joueurs):
+        if winner == joueur[i][2]:
+            return joueur[i]
+
+
+
+
+
+#hand = ['13','27','2','22','23','24','25']
+x = winning_hand(mains)
+for i in range(nb_joueurs+1):
+    if i == 0:
+        print("Les cartes du milieu")
+        for j in range(5):
+            print(deck[mains[i][j]][0], deck[mains[i][j]][1])
+    if i != 0:
+        print("Cartes Joueurs :", i)
+        for j in range(2):
+            print(deck[mains[i][j]][0], deck[mains[i][j]][1])
+
+print("La main gagnante est :")
+for i in range(2):
+    print(deck[x[1][i]][0], deck[x[1][i]][1])
 print(x)
+print(mains)
 
 
 '''def main_gagnante():
@@ -259,6 +260,7 @@ while game_on:
     #debut 4e tour de mise
     #fin 4e tour de mise
     #calcul de la main gagnante
+    
 
     #Distribution du cash
 '''
